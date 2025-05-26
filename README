@@ -1,0 +1,103 @@
+**Voice Chat Bot and Video Chat Bot with Pipecat WebRTC Pipeline**
+This project implements a voice chat bot powered by Pipecat's pipeline framework. It integrates real-time WebRTC audio streaming with speech-to-text (Deepgram), text-to-speech (Cartesia), and OpenAI LLM for conversational intelligence.
+
+**Features**
+1. Real-time WebRTC audio input/output
+
+2. Voice Activity Detection (Silero VAD)
+
+3. Deepgram for speech-to-text transcription
+
+4. OpenAI GPT-based language model for understanding and response generation
+
+5. Cartesia TTS for audio responses
+
+6. Async pipeline with parallel tasks and context gating
+
+7. Web frontend UI for voice chat interaction
+
+8. Automatic detection of statement completion via LLM
+
+**Prerequisites**
+Python 3.9+
+
+Access to APIs (Deepgram, OpenAI, Cartesia)
+
+Modern web browser for UI (Chrome, Firefox, Edge recommended)
+
+Setup Instructions
+1. Unzip the folder
+cd pipecat_zip
+
+2. Create and activate a virtual environment (recommended)
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+venv\Scripts\activate     # Windows
+
+3. Install dependencies
+pip install -r requirements.txt
+
+4. Configure environment variables
+Create a .env file in the root directory with the following variables:
+
+DEEPGRAM_API_KEY=your_deepgram_api_key
+OPENAI_API_KEY=your_openai_api_key
+CARTESIA_API_KEY=your_cartesia_api_key
+Replace the placeholders with your actual API keys.
+
+**Running the Bot**
+Run the WebRTC bot with the web frontend UI
+
+for voice bot, follow this:
+python run.py voice_chat.py --host 0.0.0.0 --port 7860
+
+for video bot, follow this:
+python run.py video_chat.py --host 0.0.0.0 --port 7860
+
+This will start a FastAPI server hosting the WebRTC frontend UI at:
+http://localhost:7860/client/
+
+Open this URL in your browser, allow microphone access, and start chatting with the bot using your voice.
+
+**How it works**
+1. The run.py script dynamically loads and runs the voice_chat.py bot.
+
+2. voice_chat.py and video_chat uses Pipecat pipeline to connect:
+ a. WebRTC audio transport
+ b. Silero VAD for voice activity detection
+ c. Deepgram for speech-to-text
+ d. OpenAI GPT to detect statement completion and generate responses
+ e. Cartesia TTS to convert text back to speech
+
+3. The frontend streams audio via WebRTC and plays bot audio responses in real time.
+
+
+**Troubleshooting**
+* Ensure your .env file is loaded and API keys are valid.
+
+* Check firewall or network issues blocking WebRTC connections.
+
+* Run with -v or -vv for verbose logs to debug pipeline behavior:
+
+python run.py voice_chat.py -vv
+
+* Update dependencies regularly to avoid version conflicts.
+
+**Dependencies Summary**
+1. pipecat-ai[silero]	-Audio processing & pipeline
+2. onnxruntime	-Model runtime for Silero VAD
+3. fastapi	-Web server and API
+4. uvicorn	-ASGI server for FastAPI
+5. python-dotenv	-Load .env config
+6. loguru	-Logging
+7. pipecat_ai_small_webrtc_prebuilt	-WebRTC frontend UI
+
+
+
+
+
+
+
+
+
+

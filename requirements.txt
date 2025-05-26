@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+python-dotenv
+pipecat-ai[webrtc,deepgram,cartesia]
+pipecat-ai-small-webrtc-prebuilt
+pipecat-ai[silero]
+pipecat-ai[moondream]
